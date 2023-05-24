@@ -1,1 +1,130 @@
+-- View dataset--
+SELECT * 
+FROM  CopyofIMDBTop250MoviesCleanedIMDBTop250Movies;
 
+--Changing the table name 
+ALTER TABLE CopyofIMDBTop250MoviesCleanedIMDBTop250Movies RENAME TO Movies
+
+-- After table change
+SELECT * 
+FRom Movies
+
+-- Top 5 Budgeted Movies
+
+SELECT name, budget
+FROM Movies
+ORDER BY budget DESC 
+LIMIT 5; 
+
+-- Princess Mononoke update 
+UPDATE Movies
+SET budget = REPLACE( budget, 235000000, 2350000); 
+
+SELECT name, budget
+FROM Movies 
+WHERE name = "Princess Mononoke" 
+
+-- 3 Idiots Update
+UPDATE Movies
+SET budget = REPLACE( budget, 550000000, 67000000); 
+
+SELECT name, budget
+FROM Movies 
+WHERE name = "3 Idiots" 
+
+
+-- Top 5 Rated Movies
+SELECT name, rating
+FROM Movies
+ORDER BY rating DESC 
+LIMIT 5; 
+
+
+-- Top 5 Box Office Hits 
+-- View dataset--
+SELECT * 
+FROM  CopyofIMDBTop250MoviesCleanedIMDBTop250Movies;
+
+--Changing the table name 
+ALTER TABLE CopyofIMDBTop250MoviesCleanedIMDBTop250Movies RENAME TO Movies
+
+-- After table change
+SELECT * 
+FRom Movies
+
+-- Top 5 Budgeted Movies
+
+SELECT name, budget
+FROM Movies
+ORDER BY budget DESC 
+LIMIT 5; 
+
+-- Princess Mononoke update 
+UPDATE Movies
+SET budget = REPLACE( budget, 235000000, 2350000); 
+
+SELECT name, budget
+FROM Movies 
+WHERE name = "Princess Mononoke" 
+
+-- 3 Idiots Update
+UPDATE Movies
+SET budget = REPLACE( budget, 550000000, 67000000); 
+
+SELECT name, budget
+FROM Movies 
+WHERE name = "3 Idiots" 
+
+
+-- Top 5 Rated Movies
+SELECT name, rating
+FROM Movies
+ORDER BY rating DESC 
+LIMIT 5; 
+
+--Top 5 Box Office Hits 
+SELECT name, box_office
+FROM Movies
+ORDER BY box_office DESC 
+LIMIT 5; 
+
+-- Top 10 Most Profitable Movies 
+SELECT name, (box_office -budget) AS Profit 
+FRom Movies
+Order BY profit DESC 
+LIMit 10
+
+-- Lowest Movies Movies 
+
+-- Most Popular Genre
+SELECT genre, COUNT(*) AS genre_count
+FROM (
+  	SELECT TRIM(value) AS genre 
+  FROM Movies 
+  CROSS JOIN json_each('["'|| REplace(genre, ',', '","') ||'"]')
+ 
+)
+GROUP BY genre 
+Order By genre_count DESC 
+LIMIT BY 5
+
+-- Top 10 Directors
+SELECT directors, COUNT(*) As Number_of_Movies
+From Movies
+GROUP BY directors
+Order By Number_of_Movies DESC
+LIMIt 10 
+
+-- How many moives in each rating category 
+SELECT certificate, COUNT(*) AS total 
+FROM Movies 
+Group By certificate 
+ORDER BY total DESC 
+
+-- Find the best years for movies 
+-- Find out how many movies are in each decade 
+-- Most popular movie genre in each decade 
+-- Find the longest movie running time 
+-- Find the shortest running time
+-- Find what actors worked in the same movies 
+-- Find what writers worked the same movies 
